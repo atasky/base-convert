@@ -1,0 +1,31 @@
+
+    base-convert - Copyright (C) 2002 Murray Nesbitt (websrc@nesbitt.ca)
+
+    This program is protected and licensed under the following terms and
+    conditions: 1) it may not be redistributed in binary form without the
+    explicit permission of the author; 2) when redistributed in source
+    form, in whole or in part, this complete copyright statement must
+    remain intact.
+
+    base-convert is a shell script that converts its numeric argument from
+    one base to another, depending on the name by which the script was
+    invoked.  For example:
+
+        Convert binary 101010 to decimal:
+
+            $ ./b2d 101011
+            43
+
+        Convert octal 755 to hexadecimal:
+    
+            $ ./o2h 755
+            1ED
+        
+        The scripts can be pipelined:
+
+            $ echo 101010 | ./b2o | ./o2h | ./h2d
+            42
+
+    The enclosed Makefile creates the 12 permutations of binary, octal, 
+    decimal and hexadecimal (b2d, d2o, h2b, etc.) as hard links.
+

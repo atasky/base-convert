@@ -1,0 +1,46 @@
+#!/bin/sh
+#
+#   base-convert - Copyright (C) 2002 Murray Nesbitt (websrc@nesbitt.ca)
+#
+#   This program is protected and licensed under the following terms and
+#   conditions: 1) it may not be redistributed in binary form without the
+#   explicit permission of the author; 2) when redistributed in source
+#   form, in whole or in part, this complete copyright statement must
+#   remain intact.
+
+if [ "$1" = "" ]
+then
+    read arg
+else
+    arg=$1
+fi
+
+if [ "$arg" = "" ] || [ "$2" != "" ]
+then
+    echo "Usage: $0 num"
+    echo "Example: b2d 10001 converts binary => decimal (17)"
+    echo "         h2o FF    converts hexadecimal => octal (377)"
+    echo "         d2h 128   converts decimal => hexadecimal (80)"
+    exit 1;
+fi
+
+arg=`echo $arg | tr a-f- A-F_`
+
+case $0 in
+    *b2d) prog="10o2i${arg}p" ;;
+    *b2h) prog="16o2i${arg}p" ;;
+    *b2o) prog="8o2i${arg}p" ;;
+    *d2b) prog="2o10i${arg}p" ;;
+    *d2h) prog="16o10i${arg}p" ;;
+    *d2o) prog="8o10i${arg}p" ;;
+    *h2b) prog="2o16i${arg}p" ;;
+    *h2d) prog="10o16i${arg}p" ;;
+    *h2o) prog="8o16i${arg}p" ;;
+    *o2b) prog="2o8i${arg}p" ;;
+    *o2d) prog="10o8i${arg}p" ;;
+    *o2h) prog="16o8i${arg}p" ;;
+    *) echo "$0: who the hell am I?"
+esac
+
+echo $prog | dc
+
